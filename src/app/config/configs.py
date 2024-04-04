@@ -1,21 +1,17 @@
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-# Application definition
+from app.config.settings import SETTING
 
 INSTALLED_APPS = [
     "app.apps.AppConfig",
 ]
 
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "hellospeak",
-        "USER": "admin",
-        "PASSWORD": "admin",
-        "HOST": "localhost",
-        "PORT": "5432",
+        "NAME": SETTING.POSTGRES_DATABASE,
+        "USER": SETTING.POSTGRES_USERNAME,
+        "PASSWORD": SETTING.POSTGRES_PASSWORD,
+        "HOST": SETTING.POSTGRES_SERVER,
+        "PORT": SETTING.POSTGRES_PORT,
     }
 }
 

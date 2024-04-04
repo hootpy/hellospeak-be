@@ -1,0 +1,27 @@
+version: "3.8"
+
+
+services:
+  database:
+    image: postgres:16.2-alpine
+    container_name: database
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: hellospeak
+    ports:
+        - "5432:5432"
+
+  api:
+    build:
+      context: ..
+      dockerfile: docker/dev.Dockerfile
+    container_name: hellospeak-api
+    volumes:
+      - "../src:/app"
+    ports:
+      - "8000:8000"
+    env_file:
+      - ../.env
+    depends_on:
+      - database

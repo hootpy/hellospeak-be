@@ -1,14 +1,7 @@
-from fastapi.routing import APIRouter
-from pydantic.main import BaseModel
-from asgiref.sync import sync_to_async
-from app.models.car import Car
+from fastapi import APIRouter, Depends
 
-
-class CarSchema(BaseModel):
-    name: str
-    brand: str
-    year: int
-
+from app.depends.user import get_current_user
+from app.schemas.user import UserGet
 
 router = APIRouter(
     prefix="/user",
@@ -16,6 +9,6 @@ router = APIRouter(
 )
 
 
-@router.post("/")
-async def create_user(user: CarSchema):
-    return await sync_to_async(Car.objects.create)(**user.dict())
+@router.get("/")
+async def get_user(current_user=Depends(get_current_user)) -> UserGet:
+    return UserGet.model_validate(current_user)

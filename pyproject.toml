@@ -10,12 +10,15 @@ readme = "README.md"
 version = "0.1.0"
 
 [tool.poetry.dependencies]
+bcrypt = "4.0.1"
 django = "^5.0.3"
 fastapi = "^0.110.0"
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
 psycopg = "^3.1.18"
 pydantic = "^2.6.4"
 pydantic-settings = "^2.2.1"
 python = "^3.10"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
 uuid = "^1.30"
 uvicorn = "^0.29.0"
 
