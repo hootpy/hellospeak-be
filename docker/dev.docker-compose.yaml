@@ -4,13 +4,22 @@ version: "3.8"
 services:
   database:
     image: postgres:16.2-alpine
-    container_name: database
+    container_name: hellospeak-db
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: hellospeak
     ports:
         - "5432:5432"
+
+  redis:
+    image: redis:6.2-alpine
+    container_name: hellospeak-redis
+    environment:
+        REDIS_PASSWORD: password
+    command: /bin/sh -c 'redis-server --appendonly yes --requirepass $${REDIS_PASSWORD}'
+    ports:
+      - "6379:6379"
 
   api:
     build:
@@ -25,3 +34,4 @@ services:
       - ../.env
     depends_on:
       - database
+      - redis

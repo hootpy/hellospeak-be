@@ -5,6 +5,8 @@ import uuid
 class UserSignUp(BaseModel):
     email: str
     password: str
+    username: str
+    full_name: str
 
 
 class UserLogin(BaseModel):
@@ -15,6 +17,15 @@ class UserLogin(BaseModel):
 class UserSignUpResponse(BaseModel):
     uuid: uuid.UUID
     email: str
+    username: str
+    full_name: str
+
+    class Config:
+        from_attributes = True
+
+
+class Conversation(BaseModel):
+    uuid: uuid.UUID
 
     class Config:
         from_attributes = True
@@ -23,6 +34,10 @@ class UserSignUpResponse(BaseModel):
 class UserGet(BaseModel):
     uuid: uuid.UUID
     email: str
+    username: str
+    full_name: str
+    score: int
+    favorite_conversations: list
 
     class Config:
         from_attributes = True

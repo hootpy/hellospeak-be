@@ -23,7 +23,9 @@ class UserCrud:
             raise UserExistsError(e="Email already exists")
         # Create user
         user.password = Authenticator.get_hashed_password(user.password)
-        return await User.objects.acreate(email=user.email, password=user.password)
+        return await User.objects.acreate(
+            email=user.email, password=user.password, username=user.username, full_name=user.full_name
+        )
 
     @classmethod
     async def get(cls, email: str) -> User:
