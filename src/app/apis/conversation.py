@@ -11,13 +11,13 @@ router = APIRouter(
 
 
 @router.get("/")
-async def get_conversations(current_user=Depends(get_current_user)) -> list[ConversationGet]:
+async def get_conversations() -> list[ConversationGet]:
     conversations = await sync_to_async(ConversationCrud.get_all)()
     return [ConversationGet.model_validate(conversation) for conversation in conversations]
 
 
 @router.get("/{uuid}")
-async def get_conversation(uuid: str, current_user=Depends(get_current_user)) -> ConversationGet:
+async def get_conversation(uuid: str) -> ConversationGet:
     conversation = await ConversationCrud.get(uuid)
     return ConversationGet.model_validate(conversation)
 
