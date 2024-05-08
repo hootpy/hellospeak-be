@@ -12,15 +12,6 @@ services:
     ports:
         - "5432:5432"
 
-  redis:
-    image: redis:6.2-alpine
-    container_name: hellospeak-redis
-    environment:
-        REDIS_PASSWORD: password
-    command: /bin/sh -c 'redis-server --appendonly yes --requirepass $${REDIS_PASSWORD}'
-    ports:
-      - "6379:6379"
-
   api:
     build:
       context: ..
@@ -34,4 +25,3 @@ services:
       - ../.env
     depends_on:
       - database
-      - redis
