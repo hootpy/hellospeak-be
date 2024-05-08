@@ -41,3 +41,12 @@ class UserGet(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class ScoreboardGet(BaseModel):
+    uuid: uuid.UUID
+    full_name: str | None
+    score: int
+
+    class Config:
+        from_attributes = True

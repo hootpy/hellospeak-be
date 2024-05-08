@@ -1,8 +1,9 @@
 from asgiref.sync import sync_to_async
 from fastapi import APIRouter, Depends
 
+from app.crud.user import UserCrud
 from app.depends.user import get_current_user
-from app.schemas.user import UserGet
+from app.schemas.user import UserGet, ScoreboardGet
 
 router = APIRouter(
     prefix="/user",
@@ -31,3 +32,9 @@ async def update_score(score: int, current_user=Depends(get_current_user)):
     return {
         "success": True,
     }
+
+
+@router.get("/scoreboard")
+async def get_scoreboard(page: int = 1, page_size: int = 10):
+    scoreboard = await sync_to_async(UserCrud.get_scoreboard)(page, page_size)
+    return [ScoreboardGet.model_validate(user) for user in scoreboard]

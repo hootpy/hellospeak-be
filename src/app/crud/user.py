@@ -32,6 +32,11 @@ class UserCrud:
         return await User.objects.filter(email=email).afirst()
 
     @classmethod
+    def get_scoreboard(cls, page: int = 1, page_size: int = 10):
+        offset = (page - 1) * page_size
+        return list(User.objects.order_by("-score").all()[offset : offset + page_size])
+
+    @classmethod
     async def get_by_uuid(cls, user_id: uuid.UUID) -> User:
         return await User.objects.filter(uuid=user_id).afirst()
 
